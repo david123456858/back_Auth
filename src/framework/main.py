@@ -1,10 +1,12 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy import text
 
 from src.controller.baseController.baseController import controller_processing
 from src.router.routerBase.routeBase import create_route_everything
-from src.framework.db.db import DB
+from src.framework.db.db import SessionLocal,engine
 from src.entity.User import Base
+from src.util.verifiConnect import verifyConnectDataBase
 
 app = FastAPI()
 
@@ -20,13 +22,14 @@ app.add_middleware(
 def readRouteSource():
     return {"Data":"Esta subido el back"}
 
-dataBase = DB()
-Base.metadata.create_all(bind= dataBase.engine)
-db_sesion = dataBase._instance
+dataBase = SessionLocal()
 
+Base.metadata.create_all(bind= engine)
+
+verifyConnectDataBase(dataBase)
+    
 controllerBase = controller_processing()
-
-app.include_router(create_route_everything(controllerBase))
+app.include_router(create_route_everything(controllerBase)) #Enrutador
 
 if __name__ == "__main__":
     import uvicorn
