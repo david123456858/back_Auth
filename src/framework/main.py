@@ -1,12 +1,22 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import text
-
 from src.controller.baseController.baseController import controller_processing
 from src.router.routerBase.routeBase import create_route_everything
 from src.framework.db.db import SessionLocal,engine
 from src.entity.User import Base
 from src.util.verifiConnect import verifyConnectDataBase
+
+
+
+
+from src.router.routerFace.Face import create_route_everything_face
+from src.CaseUse.auth.Face.loginFace import caseFace_register
+from src.CaseUse.auth.Face.authFace import  caseFace_auth
+from src.controller.controllerFace.Face import controller_Face
+
+
+
 
 app = FastAPI()
 
@@ -30,6 +40,13 @@ verifyConnectDataBase(dataBase)
     
 controllerBase = controller_processing()
 app.include_router(create_route_everything(controllerBase)) #Enrutador
+
+
+caseUseRegisterFace = caseFace_register()
+caseUseAuthFace = caseFace_auth()
+controllerFace = controller_Face(caseUseRegisterFace,caseUseAuthFace)
+app.include_router(create_route_everything_face(controllerFace))
+
 
 if __name__ == "__main__":
     import uvicorn
