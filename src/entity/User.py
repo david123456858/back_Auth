@@ -1,5 +1,4 @@
-from typing import List
-from sqlalchemy import Column,String
+from sqlalchemy import Column,String,ARRAY,JSON
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
@@ -9,7 +8,7 @@ class User(Base):
     
     nameUser = Column(String, primary_key=True,index=True)
     codeMorse= Column(String,index=True)
-    questions= Column(String,index=True)
+    questions= Column(ARRAY(JSON),index=True)
     # columan que guarda la imagen
     
     
