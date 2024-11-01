@@ -13,7 +13,7 @@ def cargar_configuracion():
         configuracion = json.load(config_file)
     return configuracion
 
-@app.post("/entrenar")
+@app.post("/entrenar") 
 async def iniciar_entrenamiento(nombre: str):
     configuracion = cargar_configuracion()
     dir_faces = configuracion[getpass.getuser()]["dir_faces"]
