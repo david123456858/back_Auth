@@ -3,6 +3,7 @@ from fastapi import APIRouter
 
 
 router = APIRouter()
+
 BASEURL = getBaseRouter()
 
 def route_morse_everything(controller):
