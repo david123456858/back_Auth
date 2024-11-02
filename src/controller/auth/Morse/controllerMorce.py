@@ -11,8 +11,9 @@ class controller_morce_processing:
             if not user:
                 return HTTPException(status_code=400,detail="faltan argumentos")
             result = await self.caseUseRegister.registerCodeMorse(user)
-            #return {"Data":"Se ha registrado correctamente el usuario"}
+            
             return result
+        
         except Exception as error:
             raise HTTPException(status_code=500,detail=f"internal error server {str(error)}")
 

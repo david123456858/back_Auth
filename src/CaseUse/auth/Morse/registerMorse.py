@@ -1,5 +1,6 @@
 from src.DTOS.userMorse import userMorse
 from fastapi.responses import JSONResponse
+
 class caseUseRegisterCodeMorse:
     def __init__(self,repository):
         self.repository = repository
@@ -13,7 +14,7 @@ class caseUseRegisterCodeMorse:
             
             result = await self.repository.createUserMorse(user)
             
-            return result
+            return {"data":"Se guardo correctamente"}
         except Exception as e:
             
             raise Exception("error in the data Base ")            

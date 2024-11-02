@@ -12,11 +12,10 @@ class controller_Questions:
         try:
             if not user:
                 return JSONResponse(status_code=422, content={"detail": "No se han mandado todo lo requerido"})
-            
-            
+        
             result = await self.caseUseRegister.registerQuestions(user)
-            
-            return {"Data":"Se ha registrado correctamente el usuario"}
+        
+            return result
         
         except Exception as error:
             
