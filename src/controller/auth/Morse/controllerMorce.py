@@ -18,10 +18,9 @@ class controller_morce_processing:
     async def loginMorse(self,user:userMorse):
         try:
             if not user:
-                return HTTPException(status_code=400,detail="faltan argumentos")
+                return JSONResponse(status_code=422, content={"detail": "No se han mandado todo lo requerido"})
             result = await self.caseUseLoggin.loginMorse(user)
-            if(result == False ):
-                return HTTPException(status_code=401,detail="user or password incorrect")
+            
             return result
         except Exception as error:
             print(error)
