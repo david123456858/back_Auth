@@ -1,18 +1,20 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from src.controller.baseController.baseController import controller_processing
-from src.router.routerBase.routeBase import create_route_everything
 from src.framework.db.db import SessionLocal,engine
 from src.entity.User import Base
 from src.util.verifiConnect import verifyConnectDataBase
 
 from src.router.routerFace.Face import create_route_everything_face
-from src.CaseUse.auth.Face.loginFace import CaseFaceRegister
-from src.CaseUse.auth.Face.authFace import  caseFace_auth
+from src.caseUse.auth.Face.loginFace import CaseFaceRegister
+from src.caseUse.auth.Face.authFace import  caseFace_auth
 from src.controller.controllerFace.Face import controller_Face
 
-
+from src.router.auth.Morse.authMorse import route_morse_everything
+from src.repository.user.userRepository import UserRepository
+from src.caseUse.auth.Morse.registerMorse import caseUseRegisterCodeMorse
+from src.caseUse.auth.Morse.loginMorse import caseUseLogginMorse
+from src.controller.auth.Morse.controllerMorce import controller_morce_processing
 
 
 app = FastAPI()
@@ -25,18 +27,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get('/')
-def readRouteSource():
-    return {"Data":"Esta subido el back"}
-
 dataBase = SessionLocal()
-
 Base.metadata.create_all(bind= engine)
-
 verifyConnectDataBase(dataBase)
-    
-controllerBase = controller_processing()
-app.include_router(create_route_everything(controllerBase)) #Enrutador
 
 # part the face
 caseUseRegisterFace = CaseFaceRegister()
@@ -44,6 +37,14 @@ caseUseAuthFace = caseFace_auth()
 controllerFace = controller_Face(caseUseRegisterFace,caseUseAuthFace)
 app.include_router(create_route_everything_face(controllerFace))
 
+#part the Code Morse
+repository = UserRepository(dataBase)
+caseUseRegisterMorse = caseUseRegisterCodeMorse(repository)
+caseUseLogginMorse = caseUseLogginMorse(repository)
+controllerMorse = controller_morce_processing(caseUseRegisterMorse,caseUseLogginMorse)
+app.include_router(route_morse_everything(controllerMorse))
+
+#Part the Questions
 
 if __name__ == "__main__":
     import uvicorn
