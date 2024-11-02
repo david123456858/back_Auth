@@ -27,6 +27,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get('/')
+def readRouteSource():
+    return {"Data":"Esta subido el back"}
+
 dataBase = SessionLocal()
 Base.metadata.create_all(bind= engine)
 verifyConnectDataBase(dataBase)
@@ -34,8 +38,8 @@ verifyConnectDataBase(dataBase)
 #part the Code Morse
 repository = UserRepository(dataBase)
 caseUseRegisterMorse = caseUseRegisterCodeMorse(repository)
-caseUseLogginMorse = caseUseLogginMorse(repository)
-controllerMorse = controller_morce_processing(caseUseRegisterMorse,caseUseLogginMorse)
+caseUseMorseLoggin = caseUseLogginMorse(repository)
+controllerMorse = controller_morce_processing(caseUseRegisterMorse,caseUseMorseLoggin)
 app.include_router(route_morse_everything(controllerMorse))
 
 
