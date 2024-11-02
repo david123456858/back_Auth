@@ -1,11 +1,12 @@
-from src.DTOS.userMorse import userMorse
 from fastapi.responses import JSONResponse
 
-class caseUseLogginMorse:
+from src.DTOS.userQuestions import userQuestions
+
+class caseUseLogginQuestions:
     def __init__(self,repository):
         self.repository = repository
         
-    async def loginMorse(self,user:userMorse):
+    async def loginMorse(self,user:userQuestions):
         try:
             findUser = self.repository.get_user_by_id(user.nameUser)
             if not findUser:

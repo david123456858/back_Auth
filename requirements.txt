@@ -34,5 +34,6 @@ typing_extensions==4.12.2
 uvicorn==0.32.0
 watchfiles==0.24.0
 websockets==13.1
-opencv-python
-numpy
+numpy==1.26.4
+opencv-contrib-python==4.10.0.84
+opencv-python==4.10.0.84
