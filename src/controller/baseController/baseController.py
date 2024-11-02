@@ -4,3 +4,6 @@ class controller_processing:
     
     async def getBase(self): #utiliza el self aunque no recibas nada
         return {"data":"Prueba exitosa de controllador"}
+    
+    async def postBase(self):
+        return{""}
