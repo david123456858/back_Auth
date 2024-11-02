@@ -1,5 +1,5 @@
 from typing import List
-from fastapi import UploadFile, HTTPException
+from fastapi import HTTPException
 from fastapi.responses import StreamingResponse
 from datetime import datetime
 
@@ -8,12 +8,12 @@ class controller_Face:
         self.caseFace_register = caseFace_register
         self.caseFace_auth = caseFace_auth        
 
-    async def register_face(self, nombre: str, images: List[UploadFile]):
+    async def register_face(self, nameUser: str, imagenes: List[str]):
         try:
             # Verificar que se reciban los argumentos necesarios
-            if not nombre or not images:
-                raise HTTPException(status_code=400, detail="Faltan argumentos: nombre o imágenes")
-            result = await self.caseFace_register.register_face(nombre, images)
+            if not nameUser or not imagenes:
+                raise HTTPException(status_code=400, detail="Faltan argumentos")
+            result = await self.caseFace_register.register_face(nameUser, imagenes)
             return result
         except Exception as error:
             raise HTTPException(status_code=500, detail=f"Internal server error: {str(error)}")

@@ -9,12 +9,12 @@ from src.entity.User import UserFace
 
 
 class CaseFaceRegister:
-   async def register_face(self, nameUser: str, imagenes_base64: List[str]) -> str:
+   async def register_face(self, nameUser: str, imagenes: List[str]) -> str:
        db: Session = SessionLocal()
        # Convertir las imágenes de Base64 a binario
        imagenes_binarias = [
            base64.b64decode(img.split(',')[1])  # Elimina el prefijo y convierte a bytes
-           for img in imagenes_base64
+           for img in imagenes
        ]
        
        try:               
@@ -23,7 +23,7 @@ class CaseFaceRegister:
            db.commit() 
            db.refresh(nuevo_usuario)
                
-           if (nuevo_usuario.id):
+           if (nuevo_usuario.nameUser):
                resultado =  {'Registrado':True, 'ID': {nuevo_usuario.id}} 
            else:
                 resultado =  {'Registrado':False, 'ID': {nuevo_usuario.id}} 
