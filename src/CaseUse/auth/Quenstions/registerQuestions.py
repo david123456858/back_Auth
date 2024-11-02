@@ -1,20 +1,20 @@
-from src.DTOS.userMorse import userMorse
 from fastapi.responses import JSONResponse
-class caseUseRegisterCodeMorse:
+
+from src.DTOS.userQuestions import userQuestions
+
+class caseUseRegisterQuestions:
     def __init__(self,repository):
         self.repository = repository
-    
-    async def registerCodeMorse(self,user:userMorse):
+        
+    async def registerQuestions(self,user:userQuestions): 
         try:
             result = self.repository.get_user_by_id(user.nameUser)
-            
             if result:
                 return JSONResponse(status_code=409, content={"detail": "User already registered"})
             
-            result = await self.repository.createUserMorse(user)
+            result = await self.repository.createUserQuestions(user)
             
             return result
-        except Exception as e:
-            
-            raise Exception("error in the data Base ")            
-        
+        except Exception as error:
+            print(error)
+            raise Exception("error in the data Base ")    

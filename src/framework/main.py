@@ -20,6 +20,11 @@ from src.router.user.findTypeAuth import route_user_everything
 from src.controller.user.user import controller_user
 from src.caseUse.user.userFindType import caseUseFindTypeAuth
 
+from src.router.auth.Quentions.authQuestions import route_questions_everything
+from src.controller.auth.Quenstions.controllerQuestions import controller_Questions
+from src.caseUse.auth.Quenstions.registerQuestions import caseUseRegisterQuestions
+from src.caseUse.auth.Quenstions.loginQuestions import caseUseLogginQuestions
+
 app = FastAPI()
 
 app.add_middleware(
@@ -52,6 +57,10 @@ controllerFace = controller_Face(caseUseRegisterFace,caseUseAuthFace)
 app.include_router(create_route_everything_face(controllerFace))
 
 #Part the Questions
+caseUseRegisterUserQuestions = caseUseRegisterQuestions(repository)
+caseUseLogginUserQuestions = caseUseLogginQuestions(repository)
+controllerQuestions = controller_Questions(caseUseRegisterUserQuestions,caseUseLogginUserQuestions)
+app.include_router(route_questions_everything(controllerQuestions))
 
 #Get type auth
 caseUseUserType = caseUseFindTypeAuth(repository)
