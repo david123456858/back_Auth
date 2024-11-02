@@ -1,5 +1,5 @@
 from src.DTOS.userMorse import userMorse
-from fastapi import HTTPException,Response,status
+from fastapi.responses import JSONResponse
 
 class caseUseLogginMorse:
     def __init__(self,repository):
@@ -9,10 +9,10 @@ class caseUseLogginMorse:
         try:
             findUser = self.repository.get_user_by_id(user.nameUser)
             if not findUser:
-                return HTTPException(status_code=404,detail="user not found")
+                return JSONResponse(status_code=404, content={"detail": "Not found user"})
             
             if (user.codeMorse != findUser.codeMorse):
-                return False
+                return JSONResponse(status_code=403, content={"detail": "Credentials incorrects"})
             
             return {"data":"loggeado"}
         except Exception as e:
