@@ -8,8 +8,8 @@ from src.entity.User import Base
 from src.util.verifiConnect import verifyConnectDataBase
 
 from src.router.routerFace.Face import create_route_everything_face
-from src.caseUse.auth.Face.loginFace import caseFace_register
-from src.caseUse.auth.Face.authFace import  caseFace_auth
+from src.CaseUse.auth.Face.loginFace import CaseFaceRegister
+from src.CaseUse.auth.Face.authFace import  caseFace_auth
 from src.controller.controllerFace.Face import controller_Face
 
 
@@ -39,7 +39,7 @@ controllerBase = controller_processing()
 app.include_router(create_route_everything(controllerBase)) #Enrutador
 
 # part the face
-caseUseRegisterFace = caseFace_register()
+caseUseRegisterFace = CaseFaceRegister()
 caseUseAuthFace = caseFace_auth()
 controllerFace = controller_Face(caseUseRegisterFace,caseUseAuthFace)
 app.include_router(create_route_everything_face(controllerFace))
