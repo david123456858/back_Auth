@@ -9,8 +9,8 @@ BASEURL = getBaseRouter()
 def route_morse_everything(controller):
     
     @router.post(f"{BASEURL}/login/Morse",tags=["code-Morse"])
-    async def loginMorse():
-        return await controller.loginMorse()
+    async def loginMorse(user:userMorse):
+        return await controller.loginMorse(user)
         
     @router.post(f"{BASEURL}/register/Morse",tags=["code-Morse"])
     async def registerMorse(user:userMorse):
