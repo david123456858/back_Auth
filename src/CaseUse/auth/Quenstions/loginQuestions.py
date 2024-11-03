@@ -7,7 +7,7 @@ class caseUseLogginQuestions:
         self.repository = repository
         
     async def loginMorse(self,user:userQuestions):
-        try:
+        try:    
             findUser = self.repository.get_user_by_id(user.nameUser)
             if not findUser:
                 return JSONResponse(status_code=404, content={"detail": "Not found user"})
