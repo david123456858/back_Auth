@@ -1,9 +1,9 @@
 import cv2
 import numpy as np
 import base64
-from src.entity.User import UserFace
 from src.DTOS.userFace import userFace
-
+import base64
+  
 class caseFace_auth:
     def __init__(self, repository):
         self.repository = repository
@@ -14,6 +14,10 @@ class caseFace_auth:
             for img in imgenes
         ]
         
+    async def codificar_imagenes_a_base64(self, imagen_binaria):
+        return f"data:image/png;base64,{base64.b64encode(imagen_binaria).decode('utf-8')}"
+    
+    
     async def decodificar_imagenes_base64(self, imgenes):
         return [base64.b64decode(img.split(',')[1]) for img in  imgenes]
 
@@ -41,18 +45,24 @@ class caseFace_auth:
             # Crear el modelo y entrenarlo
             model = cv2.face.LBPHFaceRecognizer_create()
             model.train(imagenes_entrenamiento_grises, labels)
+            
+            #imagen a devolver(para mostrar en el front)
+            img_base = await self.codificar_imagenes_a_base64(usuario.imagenes[0]) 
+            imagen_a_devolver = [img_base]
 
             # Realizar las predicciones
             resultados = []
             for img in imagenes_reconocer_grises:
                 label, confidence = model.predict(img)
-                confianza = max(0, (100 - confidence) / 100 * 100)  # Calcula el porcentaje de confianza
+                confianza = max(0, (100 - confidence) / 100 * 100) 
                 resultados.append({'label': label, 'confidence': confianza})
+                
             # Verifica si la confianza es suficiente para autenticar
-            if any(r['confidence'] >= 80 for r in resultados):  # Cambia 80 al umbral que prefieras
-                return {'autenticado': True, 'confianza':resultados[0]['confidence']}
+            confidence_value = round(resultados[0]['confidence'], 2)
+            if any(r['confidence'] >= 80 for r in resultados):  
+                return {'autenticado': True, 'confianza':confidence_value, 'imagen':imagen_a_devolver}
             else:
-                return {'autenticado': False, 'confianza': resultados[0]['confidence']}
+                return {'autenticado': False, 'confianza':confidence_value}
             
         except Exception as e:
             print(f"Error al recuperar las imágenes: {e}")
