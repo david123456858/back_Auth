@@ -10,7 +10,7 @@ def route_questions_everything(controller):
     
     @router.post(f"{BASEURL}/login/Questions",tags=["Questions"])
     async def loginQuestions(user:userQuestions):
-        return await controller.loginMorse(user)
+        return await controller.loginQuestions(user)
         
     @router.post(f"{BASEURL}/register/Questions",tags=["Questions"])
     async def registerQuestions(user:userQuestions):

@@ -12,6 +12,7 @@ class controller_user:
             
             result = self.caseUseUser.getTypeAuth(user)
             
+            
             if not result:
                 return JSONResponse(status_code=404, content={"detail": "Not Found"})
             
