@@ -2,7 +2,6 @@ from fastapi import APIRouter, UploadFile, File
 from typing import List
 from src.controller.controllerFace.Face import controller_Face 
 from src.config.routeConfig.routerConfig import getBaseRouter 
-from pydantic import BaseModel
 from src.DTOS.userFace import userFace
 
 BASE_URL = getBaseRouter()
