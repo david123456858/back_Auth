@@ -1,6 +1,6 @@
 import base64
 from src.DTOS.userFace import userFace
-from src.CaseUse.auth.Face.authFace import caseFace_auth
+from src.caseUse.auth.Face.authFace import caseFace_auth
 
 class CaseFaceRegister:
     def __init__(self,repository):
