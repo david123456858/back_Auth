@@ -59,7 +59,7 @@ class caseFace_auth:
                 
             # Verifica si la confianza es suficiente para autenticar
             confidence_value = round(resultados[0]['confidence'], 2)
-            if any(r['confidence'] >= 80 for r in resultados):  
+            if any(r['confidence'] >= 75 for r in resultados):  
                 return {'autenticado': True, 'confianza':confidence_value, 'imagen':imagen_a_devolver}
             else:
                 return {'autenticado': False, 'confianza':confidence_value}

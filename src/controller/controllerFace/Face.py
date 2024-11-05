@@ -15,7 +15,7 @@ class controller_Face:
         imagenes = user.imagenes
         
         print(len(imagenes))
-        if not nameUser or not isinstance(imagenes, list) or len(imagenes) != 10:
+        if not nameUser or not isinstance(imagenes, list) or len(imagenes) != 100:
             raise HTTPException(status_code=400, detail="Faltan argumentos")
         try:
             result = await self.caseFace_register.register_face(user)
