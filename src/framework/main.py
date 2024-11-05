@@ -6,24 +6,24 @@ from src.entity.User import Base
 from src.util.verifiConnect import verifyConnectDataBase
 
 from src.router.routerFace.Face import create_route_everything_face
-from src.caseUse.auth.Face.loginFace import CaseFaceRegister
-from src.caseUse.auth.Face.authFace import  caseFace_auth
-from src.controller.controllerFace.Face import controller_Face
+from src.CaseUse.auth.Face.loginFace import CaseFaceRegister
+from src.CaseUse.auth.Face.authFace import  caseFace_auth
+from src.Controller.controllerFace.Face import controller_Face
 
 from src.router.auth.Morse.authMorse import route_morse_everything
 from src.repository.user.userRepository import UserRepository
-from src.caseUse.auth.Morse.registerMorse import caseUseRegisterCodeMorse
-from src.caseUse.auth.Morse.loginMorse import caseUseLogginMorse
+from src.CaseUse.auth.Morse.registerMorse import caseUseRegisterCodeMorse
+from src.CaseUse.auth.Morse.loginMorse import caseUseLogginMorse
 from src.controller.auth.Morse.controllerMorce import controller_morce_processing
 
 from src.router.user.findTypeAuth import route_user_everything
 from src.controller.user.user import controller_user
-from src.caseUse.user.userFindType import caseUseFindTypeAuth
+from src.CaseUse.user.userFindType import caseUseFindTypeAuth
 
 from src.router.auth.Quentions.authQuestions import route_questions_everything
 from src.controller.auth.Quenstions.controllerQuestions import controller_Questions
-from src.caseUse.auth.Quenstions.registerQuestions import caseUseRegisterQuestions
-from src.caseUse.auth.Quenstions.loginQuestions import caseUseLogginQuestions
+from src.CaseUse.auth.Quenstions.registerQuestions import caseUseRegisterQuestions
+from src.CaseUse.auth.Quenstions.loginQuestions import caseUseLogginQuestions
 
 app = FastAPI()
 
