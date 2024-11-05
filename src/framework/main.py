@@ -49,7 +49,7 @@ caseUseRegisterMorse = caseUseRegisterCodeMorse(repository)
 caseUseMorseLoggin = caseUseLogginMorse(repository)
 controllerMorse = controller_morce_processing(caseUseRegisterMorse,caseUseMorseLoggin)
 app.include_router(route_morse_everything(controllerMorse))
-
+  
 # part the face
 caseUseRegisterFace = CaseFaceRegister(repository)
 caseUseAuthFace = caseFace_auth(repository)
