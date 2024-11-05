@@ -16,4 +16,4 @@ def route_morse_everything(controller):
     async def registerMorse(user:userMorse):
         return await controller.registerCodeMorse(user)
     
-    return router
+    return router  
