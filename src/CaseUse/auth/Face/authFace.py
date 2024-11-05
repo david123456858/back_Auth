@@ -27,7 +27,7 @@ class caseFace_auth:
     
     
     async def auth_face(self, user: userFace) -> dict:
-        usuario = self.repository.get_user_by_name(user.nameUser)
+        usuario = self.repository.get_user_by_id(user.nameUser)
         if not usuario:
             return {'autenticado': False, 'Mensaje': "No existe"}
         try:

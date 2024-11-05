@@ -14,6 +14,7 @@ class controller_Face:
         nameUser = user.nameUser
         imagenes = user.imagenes
         
+        print(len(imagenes))
         if not nameUser or not isinstance(imagenes, list) or len(imagenes) != 10:
             raise HTTPException(status_code=400, detail="Faltan argumentos")
         try:
