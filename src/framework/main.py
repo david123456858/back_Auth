@@ -8,7 +8,7 @@ from src.util.verifiConnect import verifyConnectDataBase
 from src.router.routerFace.Face import create_route_everything_face
 from src.CaseUse.auth.Face.loginFace import CaseFaceRegister
 from src.CaseUse.auth.Face.authFace import  caseFace_auth
-from src.Controller.controllerFace.Face import controller_Face
+from src.controller.controllerFace.Face import controller_Face
 
 from src.router.auth.Morse.authMorse import route_morse_everything
 from src.repository.user.userRepository import UserRepository
