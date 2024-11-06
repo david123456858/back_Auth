@@ -1,7 +1,6 @@
-from typing import List
 from fastapi import HTTPException
-from fastapi.responses import StreamingResponse
-from datetime import datetime
+from fastapi.responses import JSONResponse
+
 from src.DTOS.userFace import userFace
 
 
@@ -16,7 +15,7 @@ class controller_Face:
         
         print(len(imagenes))
         if not nameUser or not isinstance(imagenes, list) or len(imagenes) != 100:
-            raise HTTPException(status_code=400, detail="Faltan argumentos")
+            return JSONResponse(status_code=422, content={"detail": "No se han mandado todo lo requerido"}) 
         try:
             result = await self.caseFace_register.register_face(user)
             return result
@@ -29,7 +28,7 @@ class controller_Face:
         imagenes = user.imagenes
         
         if not nameUser or not isinstance(imagenes, list) or len(imagenes) != 1:
-            raise HTTPException(status_code=400, detail="Faltan argumentos")
+            return JSONResponse(status_code=422, content={"detail": "No se han mandado todo lo requerido"})
         try:
             result = await self.caseFace_auth.auth_face(user)
             return result

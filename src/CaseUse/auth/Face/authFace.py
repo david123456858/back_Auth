@@ -1,9 +1,10 @@
 import cv2
 import numpy as np
 import base64
-from src.DTOS.userFace import userFace
-import base64
+from fastapi.responses import JSONResponse
   
+from src.DTOS.userFace import userFace
+
 class caseFace_auth:
     def __init__(self, repository):
         self.repository = repository
@@ -60,9 +61,11 @@ class caseFace_auth:
             # Verifica si la confianza es suficiente para autenticar
             confidence_value = round(resultados[0]['confidence'], 2)
             if any(r['confidence'] >= 75 for r in resultados):  
-                return {'autenticado': True, 'confianza':confidence_value, 'imagen':imagen_a_devolver}
+                resultado=  {'autenticado': True, 'confianza':confidence_value, 'imagen':imagen_a_devolver}
+                return JSONResponse(status_code=200, content={ resultado })
             else:
-                return {'autenticado': False, 'confianza':confidence_value}
+                resultado = {'autenticado': False, 'confianza':confidence_value}
+                return JSONResponse(status_code=403, content={ resultado })
             
         except Exception as e:
             print(f"Error al recuperar las imágenes: {e}")
