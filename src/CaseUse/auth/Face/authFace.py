@@ -48,7 +48,7 @@ class caseFace_auth:
             model.train(imagenes_entrenamiento_grises, labels)
             
             #imagen a devolver(para mostrar en el front)
-            img_base = await self.codificar_imagenes_a_base64(usuario.imagenes[0]) 
+            img_base = await self.codificar_imagenes_a_base64(usuario.imagenes[10]) 
             imagen_a_devolver = [img_base]
 
             # Realizar las predicciones
