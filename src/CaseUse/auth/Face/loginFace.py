@@ -1,6 +1,7 @@
-import base64
 from src.DTOS.userFace import userFace
 from src.CaseUse.auth.Face.authFace import caseFace_auth
+
+from fastapi.responses import JSONResponse
 
 class CaseFaceRegister:
     def __init__(self,repository):
@@ -16,10 +17,11 @@ class CaseFaceRegister:
             user.imagenes = imagenes_binarias    
             result = await self.repository.createUserFase(user)
             if (result):
-                resultado =  {'Registrado':True, 'Mensaje':'Galeria generada'} 
+                resultado =  {'Registrado':True, 'Mensaje':'Galeria generada'}
+                return JSONResponse(status_code=200, content={ resultado })
             else:
                 resultado =  {'Registrado':False, 'Mensaje':'No se registraron las imagenes'} 
-            return resultado
+                return JSONResponse(status_code=500, content={ resultado })
         
         except Exception as e:
             print(f"Error al guardar las imágenes: {e}")
