@@ -9,12 +9,12 @@ class controller_Face:
         self.caseFace_register = caseFace_register
         self.caseFace_auth = caseFace_auth        
 
-    async def register_face(self, user:userFace)-> dict:
+    async def register_face(self, user:userFace):
         nameUser = user.nameUser
         imagenes = user.imagenes
-        
+        print("Entro En register controller")
         print(len(imagenes))
-        if not nameUser or not isinstance(imagenes, list) or len(imagenes) != 100:
+        if not nameUser or not isinstance(imagenes, list) or len(imagenes) != 30:
             return JSONResponse(status_code=422, content={"detail": "No se han mandado todo lo requerido"}) 
         try:
             result = await self.caseFace_register.register_face(user)
@@ -23,7 +23,7 @@ class controller_Face:
             raise HTTPException(status_code=500, detail=f"Internal server error: {str(error)}")
         
     
-    async def auth_face(self, user: userFace) -> dict:
+    async def auth_face(self, user: userFace):
         nameUser = user.nameUser
         imagenes = user.imagenes
         

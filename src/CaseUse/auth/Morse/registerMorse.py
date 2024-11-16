@@ -14,7 +14,7 @@ class caseUseRegisterCodeMorse:
             
             result = await self.repository.createUserMorse(user)
             
-            return {"data":"Se guardo correctamente"}
+            return {'Registrado': True}
         except Exception as e:
             
             raise Exception("error in the data Base ")            
