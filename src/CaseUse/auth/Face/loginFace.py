@@ -7,7 +7,7 @@ class CaseFaceRegister:
     def __init__(self,repository):
         self.repository = repository
         
-    async def register_face(self, user:userFace) -> dict: 
+    async def register_face(self, user:userFace): 
         usuario = self.repository.get_user_by_id(user.nameUser) 
         if (usuario):             
                 return {'Registrado':False, 'Mensaje':"Ya existe un lote de imagenes para ese nombre de usuario"} 
@@ -17,11 +17,10 @@ class CaseFaceRegister:
             user.imagenes = imagenes_binarias    
             result = await self.repository.createUserFase(user)
             if (result):
-                resultado =  {'Registrado':True, 'Mensaje':'Galeria generada'}
-                return JSONResponse(status_code=200, content={ resultado })
+                print("Entro En register case use")
+                return JSONResponse(status_code=200, content={'Registrado':True, 'Mensaje':'Galeria generada'})
             else:
-                resultado =  {'Registrado':False, 'Mensaje':'No se registraron las imagenes'} 
-                return JSONResponse(status_code=500, content={ resultado })
+                return JSONResponse(status_code=500, content={'Registrado':False, 'Mensaje':'No se registraron las imagenes'} )
         
         except Exception as e:
             print(f"Error al guardar las imágenes: {e}")

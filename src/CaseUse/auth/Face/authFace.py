@@ -27,7 +27,7 @@ class caseFace_auth:
         return [cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) for img in imgenes]
     
     
-    async def auth_face(self, user: userFace) -> dict:
+    async def auth_face(self, user: userFace):
         usuario = self.repository.get_user_by_id(user.nameUser)
         if not usuario:
             return {'autenticado': False, 'Mensaje': "No existe"}
@@ -47,10 +47,6 @@ class caseFace_auth:
             model = cv2.face.LBPHFaceRecognizer_create()
             model.train(imagenes_entrenamiento_grises, labels)
             
-            #imagen a devolver(para mostrar en el front)
-            img_base = await self.codificar_imagenes_a_base64(usuario.imagenes[0]) 
-            imagen_a_devolver = [img_base]
-
             # Realizar las predicciones
             resultados = []
             for img in imagenes_reconocer_grises:
@@ -60,12 +56,17 @@ class caseFace_auth:
                 
             # Verifica si la confianza es suficiente para autenticar
             confidence_value = round(resultados[0]['confidence'], 2)
-            if any(r['confidence'] >= 75 for r in resultados):  
-                resultado=  {'autenticado': True, 'confianza':confidence_value, 'imagen':imagen_a_devolver}
-                return JSONResponse(status_code=200, content={ resultado })
+            
+            
+            
+            #if any(r['confidence'] >= 75 for r in resultados):   
+            if (resultados[0]['confidence'] >= 60):
+                #imagen a devolver(para mostrar en el front)
+                img_base = await self.codificar_imagenes_a_base64(usuario.imagenes[1]) 
+                imagen_a_devolver = [img_base]
+                return JSONResponse(status_code=200, content={'autenticado': True, 'confianza':confidence_value, 'imagen':imagen_a_devolver})
             else:
-                resultado = {'autenticado': False, 'confianza':confidence_value}
-                return JSONResponse(status_code=403, content={ resultado })
+                return JSONResponse(status_code=403, content={'autenticado': False, 'confianza':confidence_value})
             
         except Exception as e:
             print(f"Error al recuperar las imágenes: {e}")
