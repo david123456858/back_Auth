@@ -10,9 +10,9 @@ router = APIRouter()
 
 def create_route_everything_face(controller_Face):
     @router.post(f"{BASE_URL}/registerFace", tags=['Autenticacion Facial'])
-    async def register_face(user: userFace)-> dict:
+    async def register_face(user: userFace):
         try:
-            print("Entro")
+            print("Entro En register")
             response = await controller_Face.register_face(user)
             return response
         except Exception as e:
@@ -20,7 +20,7 @@ def create_route_everything_face(controller_Face):
         
         
     @router.post(f"{BASE_URL}/authFace", tags=['Autenticacion Facial'])
-    async def auth_face(user: userFace) -> dict:
+    async def auth_face(user: userFace):
         try:
             print("entro al aut face")
             response = await controller_Face.auth_face(user)

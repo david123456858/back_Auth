@@ -12,9 +12,9 @@ class caseUseLogginMorse:
                 return JSONResponse(status_code=404, content={"detail": "Not found user"})
             
             if (user.codeMorse != findUser.codeMorse):
-                return JSONResponse(status_code=403, content={"detail": "Credentials incorrects"})
+                return JSONResponse(status_code=403, content={'autenticado': False})
             
-            return {"data":"loggeado"}
+            return {'autenticado': True}
         except Exception as e:
             print(e)
             raise Exception("error in the data Base ") 
