@@ -11,7 +11,7 @@ class caseUseLogginQuestions:
             findUser = self.repository.get_user_by_id(user.nameUser)
             if not findUser:
                 return JSONResponse(status_code=404, content={"detail": "Not found user"})
-             
+            
             for stored_question in findUser.questions:
                 for key, stored_answer in stored_question.items():
                     for question in user.questions:  # Recorrer cada pregunta en la lista de preguntas de la solicitud
