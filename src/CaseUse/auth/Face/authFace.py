@@ -60,7 +60,7 @@ class caseFace_auth:
             
             
             #if any(r['confidence'] >= 75 for r in resultados):   
-            if (resultados[0]['confidence'] >= 60):
+            if (resultados[0]['confidence'] >= 55):
                 #imagen a devolver(para mostrar en el front)
                 img_base = await self.codificar_imagenes_a_base64(usuario.imagenes[1]) 
                 imagen_a_devolver = [img_base]
