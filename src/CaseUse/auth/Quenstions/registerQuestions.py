@@ -10,11 +10,11 @@ class caseUseRegisterQuestions:
             result = self.repository.get_user_by_id(user.nameUser) 
             
             if result:
-                return JSONResponse(status_code=409, content={"detail": "User already registered"})
+                return JSONResponse(status_code=409, content={"detail": "User already registered", 'Registrado': False})
             
             result = await self.repository.createUserQuestions(user)
             
-            return {"data":"Se guardo correctamente"}
+            return {'Registrado': True}
         except Exception as error:
             print(error)
             raise Exception("error in the data Base ")    
