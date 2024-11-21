@@ -16,9 +16,9 @@ class caseUseLogginQuestions:
                 for key, stored_answer in stored_question.items():
                     for question in user.questions:  # Recorrer cada pregunta en la lista de preguntas de la solicitud
                         if key in question and question[key] == stored_answer:
-                            return {"status": "success", "message": "Question verified successfully"}
+                            return {"detail": "Question verified successfully",'autenticado': True}
             
-            return JSONResponse(status_code=403, content={"detail": "Credentials incorrects"})
+            return JSONResponse(status_code=403, content={"detail": "Credentials incorrects",'autenticado': False})
         except Exception as e:
             print(e)
             raise Exception("error in the data Base ") 
